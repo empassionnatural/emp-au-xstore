@@ -10,7 +10,7 @@
 */
 
 /*top-bar highlights*/
-#text-22.topbar-widget p{
+#text-22.topbar-widget p, #text-24.topbar-widget p{
 	position: relative;
     top: -2px;
 }
