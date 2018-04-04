@@ -54,9 +54,23 @@ $count_method = 0;
 
 				<?php endforeach;
 				else :
+					//apply free shipping method if free shipping class on product data was set
+					$flat_rate_cost = (int) $available_methods['flat_rate:8']->cost;
+
+					if ( $flat_rate_cost <= 0 ) {
+						unset( $available_methods['flat_rate:8'] );
+
+					} else {
+						unset( $available_methods['free_shipping:1'] );
+					}
+
 					foreach ( $available_methods as $method ) : ?>
                     <li>
-						<?php
+	                    <?php
+	                    if ( $flat_rate_cost <= 0 ) {
+		                    $chosen_method = ( $chosen_method == 'flat_rate:8' ) ? 'free_shipping:1' : $chosen_method;
+	                    }
+
 						printf( '<input type="radio" name="shipping_method[%1$d]" data-index="%1$d" id="shipping_method_%1$d_%2$s" value="%3$s" class="shipping_method" %4$s />
 								<label for="shipping_method_%1$d_%2$s">%5$s</label>',
 							$index, sanitize_title( $method->id ), esc_attr( $method->id ), checked( $method->id, $chosen_method, false ), wc_cart_totals_shipping_method_label( $method ) );
