@@ -44,7 +44,7 @@
 		.header-search.act-default [role=searchform] .btn:hover{
 			background-color: #4a4a4a !important;
 		}
-		table.cart .product-details a:hover, .cart-widget-products .remove:hover, .cart-widget-products a:hover, .shipping-calculator-button, .tabs .tab-title:hover, .next-post .post-info .post-title, .prev-post .post-info .post-title{
+		table.cart .product-details a:hover, .cart-widget-products .remove:hover, .cart-widget-products a:hover, .shipping-calculator-button, .tabs .tab-title:hover, .next-post .post-info .post-title, .prev-post .post-info .post-title, .form-submit input[type=submit]{
 			color: #000 !important;
 		}
 		.shipping-calculator-button:hover{
@@ -60,6 +60,15 @@
 		#wc-stripe-payment-request-wrapper, #wc-stripe-payment-request-button-separator{
 			display: none !important;
 		}
+        .single-product .product-type-subscription .woocommerce-price-suffix{
+            float: left;
+        }
+        .shipping.recurring-total{
+            display: none;
+        }
+        .single-product .tabs{
+            margin-bottom: 0;
+        }
 	</style>
 	<script type="text/javascript">
 		jQuery(document).ready(function($){
@@ -89,7 +98,23 @@
 			if(check_wholesale == true){
 				
 			}
-			
+
+            //conversio recommended widget
+            setTimeout(function(){
+                $( ".rf-recommendation-product" ).each(function() {
+                    $( '.related_prod_container' ).hide();
+                    var prod_url = $(this).find('.rf-title a').attr('href');
+                    var prod_id = $(this).find('.rf-title a').attr('data-rf-track');
+                    var btn = add_bth_html(prod_id, prod_url);
+                    $( this ).append( btn );
+                    console.log("test");
+                });
+            }, 3000);
+
+            function add_bth_html(id, link){
+                var add_btn_html = '<a href="'+link+'" data-rf-track="'+id+'" data-rf-track-source="widget" data-rf-widget-name="default" class="button product_type_simple">Read more</a>';
+                return add_btn_html;
+            }
 		});
 
 	</script>
