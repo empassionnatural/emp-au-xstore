@@ -90,6 +90,6 @@ function woocommerce_clear_cart_url() {
 add_action( 'woocommerce_cart_actions', 'empdev_add_clear_cart_button', 20 );
 function empdev_add_clear_cart_button() {
 
-	echo '<button class="btn gray" onclick="if(confirm(\'Are you sure to remove all items?\'))window.location=\'/?empty-cart=true\';else event.stopPropagation();event.preventDefault();">' . __( "Empty Cart", "woocommerce" ) . '</button>';
+	echo '<button class="btn gray" onclick="if(confirm(\'Are you sure to remove all items?\'))window.location=\'//empassion.com.au/cart/?empty-cart=true\';else event.stopPropagation();event.preventDefault();">' . __( "Empty Cart", "woocommerce" ) . '</button>';
 
 }
