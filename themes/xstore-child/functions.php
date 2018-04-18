@@ -72,9 +72,24 @@ function check_username( $pmpro_continue_registration ) {
 }
 
 //conversio recommendation widget
-if ( function_exists( 'Receiptful' ) && method_exists( Receiptful()->recommendations, 'get_recommendations' ) ) {
-	add_action( 'woocommerce_after_single_product_summary', array(
-		Receiptful()->recommendations,
-		'display_recommendations'
-	), 12 );
+//if ( function_exists( 'Receiptful' ) && method_exists( Receiptful()->recommendations, 'get_recommendations' ) ) {
+//	add_action( 'woocommerce_after_single_product_summary', array(
+//		Receiptful()->recommendations,
+//		'display_recommendations'
+//	), 12 );
+//}
+
+// check for empty-cart get param to clear the cart
+add_action( 'woocommerce_init', 'woocommerce_clear_cart_url' );
+function woocommerce_clear_cart_url() {
+	global $woocommerce;
+	if ( isset( $_GET['empty-cart'] ) ) {
+		$woocommerce->cart->empty_cart();
+	}
+}
+add_action( 'woocommerce_cart_actions', 'empdev_add_clear_cart_button', 20 );
+function empdev_add_clear_cart_button() {
+
+	echo '<button class="btn gray" onclick="if(confirm(\'Are you sure to remove all items?\'))window.location=\'/?empty-cart=true\';else event.stopPropagation();event.preventDefault();">' . __( "Empty Cart", "woocommerce" ) . '</button>';
+
 }

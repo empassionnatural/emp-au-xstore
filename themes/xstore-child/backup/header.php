@@ -5,6 +5,9 @@
 	<meta name="viewport" content="user-scalable=0, width=device-width, initial-scale=1, maximum-scale=2.0"/>
 	<?php wp_head(); ?>
 	<style>
+		.top-bar{
+          background-color: #393461;         
+        }
 		.shopping-container .cart-bag .badge-number{
 			background-color: #000;
 			opacity: 1;
@@ -23,7 +26,7 @@
 			background-color: #f8f8f8;	
 			line-height: 1.6em;			
 		}
-		.woocommerce-info b, .cart-popup .woocommerce-Price-amount{
+		.woocommerce-info b{
 			color: #333;			
 		}
 		.woocommerce-checkout.wholesale_customer .quantity.buttons_added{
@@ -41,12 +44,9 @@
 		.header-search.act-default [role=searchform] .btn:hover{
 			background-color: #4a4a4a !important;
 		}
-		table.cart .product-details a:hover, .cart-widget-products .remove:hover, .cart-widget-products a:hover, .shipping-calculator-button, .tabs .tab-title:hover, .next-post .post-info .post-title, .prev-post .post-info .post-title, .form-submit input[type=submit]{
+		table.cart .product-details a:hover, .cart-widget-products .remove:hover, .cart-widget-products a:hover, .shipping-calculator-button, .tabs .tab-title:hover, .next-post .post-info .post-title, .prev-post .post-info .post-title{
 			color: #000 !important;
 		}
-        .form-submit input[type=submit]:hover{
-            color: white !important;
-        }
 		.shipping-calculator-button:hover{
 			text-decoration: underline; 			
 		}
@@ -60,15 +60,6 @@
 		#wc-stripe-payment-request-wrapper, #wc-stripe-payment-request-button-separator{
 			display: none !important;
 		}
-        .single-product .product-type-subscription .woocommerce-price-suffix{
-            float: left;
-        }
-        .shipping.recurring-total{
-            display: none;
-        }
-        .single-product .tabs{
-            margin-bottom: 0;
-        }
 	</style>
 	<script type="text/javascript">
 		jQuery(document).ready(function($){
@@ -98,23 +89,7 @@
 			if(check_wholesale == true){
 				
 			}
-
-            //conversio recommended widget
-            setTimeout(function(){
-                $( ".rf-recommendation-product" ).each(function() {
-                    $( '.related_prod_container' ).hide();
-                    var prod_url = $(this).find('.rf-title a').attr('href');
-                    var prod_id = $(this).find('.rf-title a').attr('data-rf-track');
-                    var btn = add_bth_html(prod_id, prod_url);
-                    $( this ).append( btn );
-                    console.log("test");
-                });
-            }, 3000);
-
-            function add_bth_html(id, link){
-                var add_btn_html = '<a href="'+link+'" data-rf-track="'+id+'" data-rf-track-source="widget" data-rf-widget-name="default" class="button product_type_simple">Read more</a>';
-                return add_btn_html;
-            }
+			
 		});
 
 	</script>
