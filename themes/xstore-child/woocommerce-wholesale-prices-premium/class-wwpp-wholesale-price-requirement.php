@@ -3,11 +3,17 @@
 
 class EMPDEV_WWPP_Wholesale_Price_Requirement {
 
-	public $price_threshold;
+	private $price_threshold;
 
 	private $price_original_total;
 
 	private $price_wholesale_total;
+
+	private $price_non_wholesale_total;
+
+	private $price_compose_original_total;
+
+	private $price_compose_wholesale_total;
 
 	public static $on_wholesale;
 
@@ -23,15 +29,13 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 		$minimum_requirements_conditional_logic = get_option( 'wwpp_settings_minimum_requirements_logic' );
 		$notices                                = array();
 
-		$WPP = new WWP_Wholesale_Prices();
+		$WPP                             = new WWP_Wholesale_Prices();
+		self::$on_wholesale              = false;
+		$this->price_original_total      = 0;
+		$this->price_wholesale_total     = 0;
+		$this->price_non_wholesale_total = 0.00;
 
-		self::$on_wholesale = false;
-
-		$this->price_original_total = 0;
-		$this->price_wholesale_total = 0;
-
-		//check if product is not on wholesale then exlcude it to the cart_total
-
+		//check if product is not on wholesale then exclude it to the cart_total
 		foreach ( $cart_object->cart_contents as $cart_item_key => $cart_item ) {
 			$product_id      = WWP_Helper_Functions::wwp_get_product_id( $cart_item['data'] );
 			$wholesale_price = $WPP::get_product_wholesale_price_on_cart( $product_id, $user_wholesale_role, $cart_item, $cart_object );
@@ -39,7 +43,8 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 			if ( empty( $wholesale_price ) ) {
 				$original_price = get_post_meta( $product_id, '_price', true );
 				$original_price = $original_price * $cart_item['quantity'];
-				$cart_total     -= $original_price;
+				$this->price_non_wholesale_total += $original_price;
+				//$cart_total     -= $original_price;
 			} else {
 				$wp_price                    = $cart_item['data']->get_price();
 				$wp_price                    = $wp_price * $cart_item['quantity'];
@@ -51,6 +56,10 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 			}
 
 		}
+
+		//sum up original and wholesale total amount
+		$this->price_compose_wholesale_total = $this->price_wholesale_total + $this->price_non_wholesale_total;
+		$this->price_compose_original_total  = $this->price_original_total + $this->price_non_wholesale_total;
 
 //		var_dump($wpp_wholesale_total);
 		//var_dump($this->price_original_total);
@@ -133,10 +142,8 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 			if ( $this->price_wholesale_total < $minimum_cart_price ) {
 
 				$this->price_threshold = $minimum_cart_price - $this->price_wholesale_total;
-//				var_dump($minimum_cart_price);
-//				var_dump($cart_total);
 
-				$notices[]       = array(
+				$notices[] = array(
 					'type'    => 'notice',
 					'message' => sprintf( __( '<span class="wwpp-notice"></span>You need <b>%1$s</b> (wholesale items) on your cart to activate adjusted pricing for wholesale. Retail prices will be shown below until the minimum order threshold is met.', 'woocommerce-wholesale-prices-premium' ), WWP_Helper_Functions::wwp_formatted_price( $this->price_threshold ) )
 				);
@@ -199,7 +206,11 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 	public function empdev_wholesale_subtotal_cart_row($wholesale = false){
 		$wholesale_class = ($wholesale == false) ? 'off-wholesale' : 'on-wholesale';
 
-		echo sprintf( __( '<tr class="cart-subtotal-wholesale %3$s"><th>Subtotal</th><td>(Wholesale: <span class="wholesale-amount">%1$s</span>)<span class="orginal-amount">%2$s</span></td></tr>', 'woocommerce' ), WWP_Helper_Functions::wwp_formatted_price( $this->price_wholesale_total ), WWP_Helper_Functions::wwp_formatted_price( $this->price_original_total ), $wholesale_class );
+		echo sprintf( __( '<tr class="cart-subtotal-summary"><th>Cart Items Summary</th><td>Wholesale: <span class="wholesale-summary">%1$s</span></td></tr>', 'woocommerce' ), WWP_Helper_Functions::wwp_formatted_price( $this->price_wholesale_total ) );
+
+		echo sprintf( __( '<tr class="cart-subtotal-summary"><th></th><td>Non-wholesale: <span class="wholesale-summary">%1$s</span></td></tr>', 'woocommerce' ), WWP_Helper_Functions::wwp_formatted_price( $this->price_non_wholesale_total ) );
+
+		echo sprintf( __( '<tr class="cart-subtotal-wholesale %3$s"><th>Subtotal</th><td>(Wholesale Subtotal: <span class="wholesale-amount">%1$s</span>)<span class="orginal-amount">%2$s</span></td></tr>', 'woocommerce' ), WWP_Helper_Functions::wwp_formatted_price( $this->price_compose_wholesale_total ), WWP_Helper_Functions::wwp_formatted_price( $this->price_compose_original_total ), $wholesale_class );
 
 	}
 }

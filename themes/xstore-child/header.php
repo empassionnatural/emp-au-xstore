@@ -80,6 +80,12 @@
         .off-wholesale .wholesale-amount, .on-wholesale .orginal-amount {
             text-decoration: line-through;
         }
+        .cart_totals th{
+            width: 160px;
+        }
+        .cart-subtotal-wholesale th, .cart-subtotal-wholesale td{
+            border-top: 2px solid #1e1e1e;
+        }
 
         ::-moz-selection { background: #d2c5ff !important; }
         ::selection { background: #d2c5ff !important; }

@@ -63,6 +63,7 @@
 .quantity{
     opacity: 1;
 }
+
 .quantity.buttons_added span:hover, table.cart .remove-item:hover,
 input[type=submit]:hover, .btn:hover, .back-top:hover, .button:hover,
 .swiper-entry .swiper-custom-left:hover, .swiper-entry .swiper-custom-right:hover {
@@ -87,7 +88,7 @@ table.cart .product-details a:hover, .cart-widget-products .remove:hover, .cart-
     color: #cbcbcb;
 }
 
-#wc-stripe-payment-request-wrapper, #wc-stripe-payment-request-button-separator{
+#wc-stripe-payment-request-wrapper, #wc-stripe-payment-request-button-separator, .wholesale_customer .cart-subtotal{
     display: none !important;
 }
 .single-product .product-type-subscription .woocommerce-price-suffix{
@@ -99,6 +100,21 @@ table.cart .product-details a:hover, .cart-widget-products .remove:hover, .cart-
 .single-product .tabs{
     margin-bottom: 0;
 }
+.cart-subtotal-wholesale .wholesale-amount{
+    font-size: 20px;
+    font-weight: bold;
+}
+.cart-subtotal-wholesale .orginal-amount{
+    padding-left: 5px;
+    font-size: 18px;
+}
+.off-wholesale .wholesale-amount, .on-wholesale .orginal-amount {
+    text-decoration: line-through;
+}
+
+::-moz-selection { background: #d2c5ff !important; }
+::selection { background: #d2c5ff !important; }
+
 
 /*Item Highlights*/
 .prod-highlight-wrapper{
