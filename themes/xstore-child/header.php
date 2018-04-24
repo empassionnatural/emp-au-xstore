@@ -57,7 +57,7 @@
 			color: #cbcbcb;
 		}
 		
-		#wc-stripe-payment-request-wrapper, #wc-stripe-payment-request-button-separator{
+		#wc-stripe-payment-request-wrapper, #wc-stripe-payment-request-button-separator, .wholesale_customer .cart-subtotal{
 			display: none !important;
 		}
         .single-product .product-type-subscription .woocommerce-price-suffix{
@@ -69,6 +69,20 @@
         .single-product .tabs{
             margin-bottom: 0;
         }
+        .cart-subtotal-wholesale .wholesale-amount{
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .cart-subtotal-wholesale .orginal-amount{
+            padding-left: 5px;
+            font-size: 18px;
+        }
+        .off-wholesale .wholesale-amount, .on-wholesale .orginal-amount {
+            text-decoration: line-through;
+        }
+
+        ::-moz-selection { background: #d2c5ff !important; }
+        ::selection { background: #d2c5ff !important; }
 	</style>
 	<script type="text/javascript">
 		jQuery(document).ready(function($){

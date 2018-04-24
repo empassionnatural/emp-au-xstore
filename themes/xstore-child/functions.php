@@ -93,3 +93,6 @@ function empdev_add_clear_cart_button() {
 	echo '<button class="btn gray" onclick="if(confirm(\'Are you sure to remove all items?\'))window.location=\'//empassion.com.au/cart/?empty-cart=true\';else event.stopPropagation();event.preventDefault();">' . __( "Empty Cart", "woocommerce" ) . '</button>';
 
 }
+
+//wholesale notice filter
+require_once( get_stylesheet_directory() . '/woocommerce-wholesale-prices-premium/class-wwpp-wholesale-price-requirement.php' );
