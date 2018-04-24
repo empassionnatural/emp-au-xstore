@@ -61,14 +61,6 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 		$this->price_compose_wholesale_total = $this->price_wholesale_total + $this->price_non_wholesale_total;
 		$this->price_compose_original_total  = $this->price_original_total + $this->price_non_wholesale_total;
 
-//		var_dump($wpp_wholesale_total);
-		//var_dump($this->price_original_total);
-
-		//$wc_cart = new WC_Cart();
-//		var_dump( $cart_total );
-//		var_dump( $cart_items );
-//		var_dump(WC()->cart->calculate_totals());
-
 		// Check if there is an option that overrides wholesale price order requirement per role
 		$override_per_wholesale_role = get_option( 'wwpp_settings_override_order_requirement_per_role' , false );
 
@@ -177,13 +169,6 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 		add_action( 'woocommerce_wholesale_sub_total_row', array( $this, 'empdev_wholesale_subtotal_cart_row' ), 20 , 1);
 
 
-
-
-//		var_dump($cart_total);
-//		var_dump($this->price_wholesale_total);
-//		var_dump($this->price_original_total);
-//		$discounted_amount = $this->price_wholesale_total - $this->price_original_total;
-		//var_dump($discounted_amount);
 		$notices = apply_filters( 'wwpp_filter_wholesale_price_requirement_failure_notice' , $notices , $minimum_cart_items , $minimum_cart_price , $cart_items , $cart_total , $cart_object , $user_wholesale_role );
 
 		return !empty( $notices ) ? $notices : $apply_wholesale_price;
