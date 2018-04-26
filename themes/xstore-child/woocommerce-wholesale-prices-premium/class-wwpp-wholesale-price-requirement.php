@@ -19,7 +19,7 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 
 	public function __construct() {
 
-		add_filter( 'wwp_apply_wholesale_price_cart_level' , array( $this, 'empdev_filter_if_apply_wholesale_price_cart_level'), 20 , 5 );
+		add_filter( 'wwp_apply_wholesale_price_cart_level' , array( $this, 'empdev_filter_if_apply_wholesale_price_cart_level'), 99 , 5 );
 	}
 
 	public function empdev_filter_if_apply_wholesale_price_cart_level( $apply_wholesale_price , $cart_total , $cart_items , $cart_object , $user_wholesale_role ) {
@@ -45,6 +45,7 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 				$original_price = $original_price * $cart_item['quantity'];
 				$this->price_non_wholesale_total += $original_price;
 				//$cart_total     -= $original_price;
+				//$this->price_wholesale_total -= $original_price;
 			} else {
 				$wp_price                    = $cart_item['data']->get_price();
 				$wp_price                    = $wp_price * $cart_item['quantity'];
@@ -158,9 +159,9 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 		}
 
 		//display notice if wholesale is activated
-		if( empty($notices) ) {
-			add_action( 'woocommerce_before_cart', array($this, 'empdev_wholesale_sucess_add_checkout_notice'), 20 );
-			add_action( 'woocommerce_before_checkout_form', array($this, 'empdev_wholesale_sucess_add_checkout_notice'), 20 );
+		if ( empty( $notices ) ) {
+			add_action( 'woocommerce_before_cart', array( $this, 'empdev_wholesale_sucess_add_checkout_notice' ), 20 );
+			add_action( 'woocommerce_before_checkout_form', array( $this, 'empdev_wholesale_sucess_add_checkout_notice' ), 20 );
 
 			self::$on_wholesale = true;
 		}
@@ -188,12 +189,12 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 
 	}
 
-	public function empdev_wholesale_subtotal_cart_row($wholesale = false){
-		$wholesale_class = ($wholesale == false) ? 'off-wholesale' : 'on-wholesale';
+	public function empdev_wholesale_subtotal_cart_row( $wholesale = false ) {
+		$wholesale_class = ( $wholesale == false ) ? 'off-wholesale' : 'on-wholesale';
 
 		echo sprintf( __( '<tr class="cart-subtotal-summary"><th>Cart Items Summary</th><td>Wholesale: <span class="wholesale-summary">%1$s</span></td></tr>', 'woocommerce' ), WWP_Helper_Functions::wwp_formatted_price( $this->price_wholesale_total ) );
 
-		echo sprintf( __( '<tr class="cart-subtotal-summary"><th></th><td>Non-wholesale: <span class="wholesale-summary">%1$s</span></td></tr>', 'woocommerce' ), WWP_Helper_Functions::wwp_formatted_price( $this->price_non_wholesale_total ) );
+		echo sprintf( __( '<tr class="cart-subtotal-summary"><th></th><td><span tooltip="test">Non-wholesale:</span> <span class="wholesale-summary">%1$s</span></td></tr>', 'woocommerce' ), WWP_Helper_Functions::wwp_formatted_price( $this->price_non_wholesale_total ) );
 
 		echo sprintf( __( '<tr class="cart-subtotal-wholesale %3$s"><th>Subtotal</th><td>(Wholesale Subtotal: <span class="wholesale-amount">%1$s</span>)<span class="orginal-amount">%2$s</span></td></tr>', 'woocommerce' ), WWP_Helper_Functions::wwp_formatted_price( $this->price_compose_wholesale_total ), WWP_Helper_Functions::wwp_formatted_price( $this->price_compose_original_total ), $wholesale_class );
 

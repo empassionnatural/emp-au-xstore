@@ -19,7 +19,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-$wholesale_class = EMPDEV_WWPP_Wholesale_Price_Requirement::$on_wholesale;
+if( class_exists( 'WWP_Wholesale_Prices' ) ){
+	$wholesale_class = EMPDEV_WWPP_Wholesale_Price_Requirement::$on_wholesale;
+}
 ?>
 
 <div class="cart_totals <?php echo ( WC()->customer->has_calculated_shipping() ) ? 'calculated_shipping' : ''; ?>">

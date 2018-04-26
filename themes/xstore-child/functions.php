@@ -95,4 +95,6 @@ function empdev_add_clear_cart_button() {
 }
 
 //wholesale notice filter
-require_once( get_stylesheet_directory() . '/woocommerce-wholesale-prices-premium/class-wwpp-wholesale-price-requirement.php' );
+if( class_exists( 'WWP_Wholesale_Prices' ) ) {
+	require_once( get_stylesheet_directory() . '/woocommerce-wholesale-prices-premium/class-wwpp-wholesale-price-requirement.php' );
+}
