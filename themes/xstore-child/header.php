@@ -86,6 +86,12 @@
         .cart-subtotal-wholesale th, .cart-subtotal-wholesale td{
             border-top: 2px solid #1e1e1e;
         }
+        .wholesale-shipping p{
+            font-size: 0.86rem;
+            text-transform: uppercase;
+            color: #1e1e1e;
+            font-weight: bold;
+        }
 
         ::-moz-selection { background: #d2c5ff !important; }
         ::selection { background: #d2c5ff !important; }
