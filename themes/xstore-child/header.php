@@ -92,6 +92,22 @@
             color: #1e1e1e;
             font-weight: bold;
         }
+        .stock{
+            color: #777;
+            text-transform: capitalize;
+        }
+        .product-information .price{
+            margin-bottom: 10px;
+        }
+        .wholesale_customer .product-information .price{
+            margin-bottom: 0;
+        }
+        .product-information .woocommerce-price-suffix{
+            margin-bottom: 5px;
+        }
+        .wholesale_price_container{
+            margin-top: -10px;
+        }
 
         ::-moz-selection { background: #d2c5ff !important; }
         ::selection { background: #d2c5ff !important; }
