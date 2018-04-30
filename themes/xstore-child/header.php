@@ -105,8 +105,50 @@
         .product-information .woocommerce-price-suffix{
             margin-bottom: 5px;
         }
-        .wholesale_price_container{
+        .product-information .wholesale_price_container{
             margin-top: -10px;
+        }
+        .remove-item-mobile{
+            display: none !important;
+        }
+        @media screen and (max-width: 991px){
+            .menu li.menu-item-has-children:before, .mobile-menu-wrapper .menu>li .sub-menu .menu-show-all a{
+                display: none;
+            }
+            .mobile-menu-wrapper .menu li a:hover, .mobile-menu-wrapper .menu>li .sub-menu li a:hover {
+                color: #000;
+            }
+        }
+        @media screen and (max-width: 480px){
+            table.cart .product-name{
+                width: 45px;
+            }
+            table.cart .product-remove{
+                display: none;
+            }
+            table.cart .product-name img{
+                max-width: 45px;
+            }
+            .quantity.buttons_added span{
+                width: 25px;
+                display: inline-block !important;
+            }
+            .quantity.buttons_added input[type=number]{
+                padding: 0 .1em;
+            }
+            .quantity.buttons_added .plus:before, .quantity.buttons_added .minus:before{
+                font-size: 13px;
+            }
+            .remove-item-mobile{
+                display: block !important;
+                position: relative;
+                top: 5px;
+            }
+        }
+        @media screen and (max-width: 320px){
+            table.cart .product-name{
+                display: none;
+            }
         }
 
         ::-moz-selection { background: #d2c5ff !important; }

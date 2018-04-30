@@ -108,7 +108,12 @@ do_action( 'woocommerce_before_cart' );
 							}
 
 							echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item );
+
+						    echo apply_filters( 'woocommerce_cart_item_remove_link_mobile', sprintf( '<a href="%s" class="remove-item-mobile" title="%s">Remove</a>', esc_url( wc_get_cart_remove_url( $cart_item_key ) ), __( 'Remove this item', 'xstore' ) ), $cart_item_key );
 						?>
+
+
+
 					</td>
 
 					<td class="product-subtotal" data-title="<?php esc_attr_e( 'Total', 'xstore' ); ?>">
