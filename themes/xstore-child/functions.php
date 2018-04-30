@@ -1,4 +1,6 @@
 <?php
+
+//enqueue parent theme
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {
 	wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css', array( 'bootstrap' ) );
@@ -16,6 +18,14 @@ function theme_enqueue_styles() {
 
 	//wp_enqueue_script( 'custom-js', get_stylesheet_directory_uri() . '/js/custom.js', array(), '', true );
 
+}
+
+//enqueue custom scripts
+add_action( 'wp_enqueue_scripts', 'empdev_custom_scripts_frontend', 99 );
+
+function empdev_custom_scripts_frontend(){
+	wp_enqueue_script( 'custom-script', get_stylesheet_directory_uri() . '/js/custom-script.js', array('jquery'), '1.0', false );
+	wp_enqueue_style( 'custom-style', get_stylesheet_directory_uri() . '/css/custom-style.css', array(), '11.2' );
 }
 
 add_action( 'pmpro_after_checkout', 'sync_woo_billing_func' );
@@ -79,20 +89,9 @@ function check_username( $pmpro_continue_registration ) {
 //	), 12 );
 //}
 
-// check for empty-cart get param to clear the cart
-add_action( 'woocommerce_init', 'woocommerce_clear_cart_url' );
-function woocommerce_clear_cart_url() {
-	global $woocommerce;
-	if ( isset( $_GET['empty-cart'] ) ) {
-		$woocommerce->cart->empty_cart();
-	}
-}
-add_action( 'woocommerce_cart_actions', 'empdev_add_clear_cart_button', 20 );
-function empdev_add_clear_cart_button() {
 
-	echo '<button class="btn gray" onclick="if(confirm(\'Are you sure to remove all items?\'))window.location=\'//empassion.com.au/cart/?empty-cart=true\';else event.stopPropagation();event.preventDefault();">' . __( "Empty Cart", "woocommerce" ) . '</button>';
-
-}
+//woocommerce custom hooks
+require_once( get_stylesheet_directory() . '/inc/class-empdev-woocommerce-hooks.php' );
 
 //wholesale notice filter
 if( class_exists( 'WWP_Wholesale_Prices' ) ) {
