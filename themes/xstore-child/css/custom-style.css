@@ -24,9 +24,22 @@
     padding-left: 5px;
 }
 
+/*Container homepage*/
+#fix-row-height.vc_row-has-fill>.vc_column_container>.vc_column-inner{
+    padding-top: 42px;
+    padding-bottom: 2px
+}
+
+div#fix-row-height .vc_column-inner{
+
+}
+.home .vc_col-has-fill>.vc_column-inner, .home .vc_row-has-fill+.vc_row-full-width+.vc_row>.vc_column_container>.vc_column-inner, .home .vc_row-has-fill+.vc_row>.vc_column_container>.vc_column-inner, .home .vc_row-has-fill+.vc_vc_row>.vc_row>.vc_vc_column>.vc_column_container>.vc_column-inner, .home .vc_row-has-fill+.vc_vc_row_inner>.vc_row>.vc_vc_column_inner>.vc_column_container>.vc_column-inner, .home .vc_row-has-fill>.vc_column_container>.vc_column-inner, .home .vc_row-has-fill>.vc_row>.vc_vc_column>.vc_column_container>.vc_column-inner, .home .vc_row-has-fill>.vc_vc_column_inner>.vc_column_container>.vc_column-inner, .home .vc_section.vc_section-has-fill, .home .vc_section.vc_section-has-fill+.vc_row-full-width+.vc_section, .home .vc_section.vc_section-has-fill+.vc_section {
+    padding-top: 0;
+}
+
 /*Item Highlights*/
 .prod-highlight-wrapper{
-    margin-top: 25px;
+    margin-top: 16px;
 }
 .prod-highlight-col > .vc_column-inner > .wpb_wrapper{
     background-color: #231f20;
@@ -336,6 +349,10 @@ body > div.template-container > div.template-content > div.page-wrapper > div.co
     display:none;
 }
 
+/*Conversion*/
+#billing_email_conversio_optin_field{
+    display: none;
+}
 
 /*wholesale pricing*/
 .single-product .product-type-subscription .woocommerce-price-suffix{
@@ -364,6 +381,10 @@ body > div.template-container > div.template-content > div.page-wrapper > div.co
 .cart-subtotal-wholesale th, .cart-subtotal-wholesale td{
     border-top: 2px solid #1e1e1e;
 }
+.cart-item-details .variation{
+    margin-bottom: 0;
+}
+
 .wholesale-shipping p{
     font-size: 0.86rem;
     text-transform: uppercase;
@@ -406,6 +427,12 @@ body > div.template-container > div.template-content > div.page-wrapper > div.co
 
 /*Responsive*/
 @media (max-width:1024px){
+    .header-search.act-default {
+        width: 10.5em;
+    }
+    .prod-highlight-wrapper{
+        margin-top: 6px;
+    }
     .prod-highlight-col .wpb_single_image{
         position: relative;
         top: 0px;
@@ -425,17 +452,13 @@ body > div.template-container > div.template-content > div.page-wrapper > div.co
     .product-inview .afterpay-payment-info{
         line-height: 1.3;
     }
-    #fix-row-height .ult-banner-block, #promotion-section .ult-banner-block{
-        margin-bottom: 0;
-    }
+
 
 }
-@media only screen and (min-width: 993px){
-    .header-search.act-default {
-        width: 10.5em;
-    }
+@media (min-width: 993px){
+
 }
-@media screen and (max-width: 991px){
+@media (max-width: 991px){
     .menu li.menu-item-has-children:before, .mobile-menu-wrapper .menu>li .sub-menu .menu-show-all a{
         display: none;
     }
@@ -451,11 +474,18 @@ body > div.template-container > div.template-content > div.page-wrapper > div.co
         font-size: 13px;
         line-height: 16px;
     }
-}
-@media screen and (max-width: 768px){
 
 }
+@media (max-width: 768px){
+    .prod-highlight-col > .vc_column-inner > .wpb_wrapper{
+        min-height: 314px;
+    }
+}
 @media (max-width:767px){
+    #fix-row-height.vc_row-has-fill>.vc_column_container>.vc_column-inner{
+        padding-top: 35px;
+        padding-bottom: 0px;
+    }
     .prod-highlight-col:first-child{
         margin-bottom: 35px;
     }
@@ -469,9 +499,16 @@ body > div.template-container > div.template-content > div.page-wrapper > div.co
         font-size: 1.14rem;
         line-height: 1.8;
     }
+    #fix-row-height .ult-banner-block{
+        margin-bottom: 0;
+    }
+    #fix-row-height .wpb_column:nth-child(3) .ult-banner-block {
+        margin-bottom: 35px !important;
+    }
+
 }
 
-@media screen and (max-width: 480px){
+@media (max-width: 480px){
     table.cart .product-name{
         width: 45px;
     }
@@ -497,7 +534,7 @@ body > div.template-container > div.template-content > div.page-wrapper > div.co
         top: 5px;
     }
 }
-@media screen and (max-width: 320px){
+@media (max-width: 320px){
     table.cart .product-name{
         display: none;
     }

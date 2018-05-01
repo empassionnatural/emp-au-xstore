@@ -7,7 +7,7 @@
 	<style>
         /*Fixed bugs woocommerce*/
         .shopping-container .cart-bag .badge-number{
-            background-color: #000;
+            background-color: #000 !important;
             opacity: 1;
         }
         .shipping-error{
