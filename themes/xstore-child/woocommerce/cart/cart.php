@@ -58,6 +58,17 @@ do_action( 'woocommerce_before_cart' );
                         </div>
 					</td>
 					<td class="product-details">
+                        <div class="product-thumbnail-mobile">
+							<?php
+							$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
+
+							if ( ! $_product->is_visible() || ! $product_permalink)
+								echo $thumbnail;
+							else
+								printf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $thumbnail );
+
+							?>
+                        </div>
                         <div class="cart-item-details">
                             <?php
                                     if ( ! $_product->is_visible() || ! $product_permalink  )
@@ -77,14 +88,14 @@ do_action( 'woocommerce_before_cart' );
 									echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key );
 								?>
                             </span>
+	                        <?php
+	                        //display in stock product quantity
+	                        $stock_available = $_product->get_availability();
+	                        $availability = $stock_available['availability'];
+	                        $availability = preg_replace( '/(\d+)/', '<span class="stock-count">($1)</span>', $availability );
+	                        echo '<span class="stock '. esc_attr( $stock_available['class'] ) .' "> '. wp_kses_post( $availability ).' </span>';
+	                        ?>
                         </div>
-                        <?php
-                            //display in stock product quantity
-                            $stock_available = $_product->get_availability();
-                            $availability = $stock_available['availability'];
-                            $availability = preg_replace( '/(\d+)/', '<span class="stock-count">($1)</span>', $availability );
-                            echo '<span class="stock '. esc_attr( $stock_available['class'] ) .' "> '. wp_kses_post( $availability ).' </span>';
-                        ?>
 					</td>
 
 					<td class="product-price" data-title="<?php esc_attr_e( 'Price', 'xstore' ); ?>">

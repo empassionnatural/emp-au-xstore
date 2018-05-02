@@ -416,6 +416,11 @@ body > div.template-container > div.template-content > div.page-wrapper > div.co
 .product-inview .afterpay-payment-info{
     margin-bottom: 1.0714em;
 }
+.product-thumbnail-mobile{
+    display: none;
+    float:left;
+    width: 50px;
+}
 
 /*Footer*/
 .et-follow-buttons.buttons-size-large a:hover{
@@ -550,10 +555,20 @@ body > div.template-container > div.template-content > div.page-wrapper > div.co
         text-align: center;
     }
 }
-@media (max-width: 320px){
+@media (max-width: 375px){
     table.cart .product-name{
         display: none;
     }
+    .product-thumbnail-mobile{
+        display: block;
+    }
+    .cart-item-details{
+        margin-left: 50px;
+    }
+
+}
+@media (max-width: 320px){
+
 }
 
 
