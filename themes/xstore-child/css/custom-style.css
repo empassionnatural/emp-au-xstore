@@ -355,6 +355,9 @@ body > div.template-container > div.template-content > div.page-wrapper > div.co
 }
 
 /*wholesale pricing*/
+.price + form.cart{
+    margin-top: 1em;
+}
 .single-product .product-type-subscription .woocommerce-price-suffix{
     float: left;
 }
@@ -563,7 +566,7 @@ body > div.template-container > div.template-content > div.page-wrapper > div.co
         display: block;
     }
     .cart-item-details{
-        margin-left: 50px;
+        margin-left: 52px;
     }
 
 }

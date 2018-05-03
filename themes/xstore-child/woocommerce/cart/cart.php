@@ -47,7 +47,7 @@ do_action( 'woocommerce_before_cart' );
 					<td class="product-name" data-title="<?php esc_attr_e( 'Product', 'xstore' ); ?>">
                         <div class="product-thumbnail">
                             <?php
-                                    $thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
+                                    $thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image('medium'), $cart_item, $cart_item_key );
 
                                     if ( ! $_product->is_visible() || ! $product_permalink)
                                             echo $thumbnail;
@@ -60,7 +60,7 @@ do_action( 'woocommerce_before_cart' );
 					<td class="product-details">
                         <div class="product-thumbnail-mobile">
 							<?php
-							$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
+							$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image('medium'), $cart_item, $cart_item_key );
 
 							if ( ! $_product->is_visible() || ! $product_permalink)
 								echo $thumbnail;
