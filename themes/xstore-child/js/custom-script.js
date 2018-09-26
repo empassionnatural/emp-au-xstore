@@ -24,6 +24,7 @@ jQuery(document).ready(function($){
     if(check_wholesale == false){
         //console.log(check_wholesale);
         $('.woocommerce-checkout').find('#billing_address_google_field').remove();
+        $('.woocommerce-checkout').find('#shipping_address_google_field').remove();
     }
     if(check_wholesale == true){
 
