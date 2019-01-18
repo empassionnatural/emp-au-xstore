@@ -24,7 +24,7 @@ function theme_enqueue_styles() {
 add_action( 'wp_enqueue_scripts', 'empdev_custom_scripts_frontend', 99 );
 
 function empdev_custom_scripts_frontend(){
-	wp_enqueue_script( 'custom-script', get_stylesheet_directory_uri() . '/js/custom-script.js', array('jquery'), '1.0.2', false );
+	wp_enqueue_script( 'custom-script', get_stylesheet_directory_uri() . '/js/custom-script.js', array('jquery'), '1.1.3', false );
 	wp_enqueue_style( 'custom-style', get_stylesheet_directory_uri() . '/css/custom-style.css', array(), '1.1.3' );
 
 
@@ -32,7 +32,7 @@ function empdev_custom_scripts_frontend(){
 	wp_enqueue_script( 'bootstrap-core', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js', false, false );
 	wp_enqueue_script( 'bootstrap-select', get_stylesheet_directory_uri() . '/plugins/bootstrap-select/js/bootstrap-select.js', array( 'jquery' ), false, false );
 
-	wp_enqueue_script( 'landingmap-scripts', get_stylesheet_directory_uri() . '/assets/main-global.js', array( 'jquery' ), '1.7.0', false );
+	wp_enqueue_script( 'landingmap-scripts', get_stylesheet_directory_uri() . '/assets/main-global.js', array( 'jquery' ), '2.1.5', false );
 	wp_enqueue_style( 'global-styles', get_stylesheet_directory_uri() . '/assets/main-style.css', false, '1.1.2' );
 	if( is_front_page() ){
 
@@ -160,3 +160,4 @@ function etheme_shop_navbar( $location = 'header', $exclude = array(), $force = 
 
 //EMP Dev Woocommerce
 require_once( get_stylesheet_directory() . '/emp-dev-wc/emp-dev-theme-functions.php' );
+require_once( get_stylesheet_directory() . '/emp-dev-wc/emp-dev-login.php' );

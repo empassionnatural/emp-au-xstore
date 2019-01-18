@@ -62,10 +62,14 @@ jQuery(document).ready(function($){
             });
         },
         restrictStatesSelect: function(){
+            var billing_state_default = $('#billing_state').val();
 
             $('#place_order').live('click', function(e){
                 var states_error = $('#order_review').find('.states-info').length;
                 console.log(states_error);
+                var billing_state_default = $('#billing_state').val();
+                main_global.checkAddressStates(billing_state_default);
+
                 if( states_error == 1 ){
                     $('#place_order').addClass('disabled');
                     $('#place_order').attr('disabled', true);
@@ -75,7 +79,7 @@ jQuery(document).ready(function($){
                 }
             });
 
-            var billing_state_default = $('#billing_state').val();
+
             setTimeout(function(){
                 main_global.checkAddressStates(billing_state_default);
             }, 3000);
@@ -101,22 +105,67 @@ jQuery(document).ready(function($){
         },
         checkAddressStates: function(states){
             $('.states-info').remove();
-            switch( states ){
-                case 'QLD':
 
+            var pid = $('.cart_item').map(function(){
+                return $(this).data('pid');
+            }).get().join();
+
+            switch( states ){
+                case 'QLD1':
+                    console.log(pid);
                     $('#place_order').addClass('disabled');
                     $('#place_order').attr('disabled', true);
-                    var states_error = '<ul class="woocommerce-info" role="info"><li><a href="https://qld.empassion.com.au">Please click here to place an order in Queensland.</a><li></ul>';
+                    var states_error = '<ul class="woocommerce-info" role="info"><li><a href="https://qld.empassion.com.au/cart/?add-to-cart='+pid+'">Please click here to place an order in Queensland.</a><li></ul>';
                     //$('.shipping').addClass('error-tr');
                     //console.log('NO shipping');
                     $('<div class="states-info">'+states_error+'</div>').insertAfter('#payment');
                     console.log(states);
                     break;
-                case 'WA':
+                case 'NSW':
+                    console.log(pid);
+                    $('#place_order').addClass('disabled');
+                    $('#place_order').attr('disabled', true);
+                    var states_error = '<ul class="woocommerce-info" role="info"><li><a href="https://nsw.empassion.com.au/cart/?add-to-cart='+pid+'">Please click here to place an order in New South Wales.</a><li></ul>';
+                    //$('.shipping').addClass('error-tr');
+                    //console.log('NO shipping');
+                    $('<div class="states-info">'+states_error+'</div>').insertAfter('#payment');
+                    console.log(states);
+                    break;
+                case 'ACT':
+                    console.log(pid);
+                    $('#place_order').addClass('disabled');
+                    $('#place_order').attr('disabled', true);
+                    var states_error = '<ul class="woocommerce-info" role="info"><li><a href="https://nsw.empassion.com.au/cart/?add-to-cart='+pid+'">Please click here to place an order in Australian Capital Territory.</a><li></ul>';
+                    //$('.shipping').addClass('error-tr');
+                    //console.log('NO shipping');
+                    $('<div class="states-info">'+states_error+'</div>').insertAfter('#payment');
+                    console.log(states);
+                    break;
+                case 'WA1':
 
                     $('#place_order').addClass('disabled');
                     $('#place_order').attr('disabled', true);
                     var states_error = '<ul class="woocommerce-info" role="info"><li><a href="https://wa.empassion.com.au">Please click here to place an order in Western Australia.</a><li></ul>';
+                    //$('.shipping').addClass('error-tr');
+                    //console.log('NO shipping');
+                    $('<div class="states-info">'+states_error+'</div>').insertAfter('#payment');
+                    console.log(states);
+                    break;
+                case 'VIC':
+
+                    $('#place_order').addClass('disabled');
+                    $('#place_order').attr('disabled', true);
+                    var states_error = '<ul class="woocommerce-info" role="info"><li><a href="https://vic.empassion.com.au/cart/?add-to-cart='+pid+'">Please click here to place an order in Victoria.</a><li></ul>';
+                    //$('.shipping').addClass('error-tr');
+                    //console.log('NO shipping');
+                    $('<div class="states-info">'+states_error+'</div>').insertAfter('#payment');
+                    console.log(states);
+                    break;
+                case 'TAS':
+
+                    $('#place_order').addClass('disabled');
+                    $('#place_order').attr('disabled', true);
+                    var states_error = '<ul class="woocommerce-info" role="info"><li><a href="https://vic.empassion.com.au/cart/?add-to-cart='+pid+'">Please click here to place an order in Tasmania.</a><li></ul>';
                     //$('.shipping').addClass('error-tr');
                     //console.log('NO shipping');
                     $('<div class="states-info">'+states_error+'</div>').insertAfter('#payment');
@@ -166,28 +215,28 @@ jQuery(document).ready(function($){
             var state_link;
             switch(state_id){
                 case 'qld':
-                    state_link = 'qld.empassion.com.au';
+                    state_link = 'empassion.com.au/home';
                     break;
                 case 'wa':
-                    state_link = 'wa.empassion.com.au';
+                    state_link = 'empassion.com.au/home';
                     break;
                 case 'nt':
                     state_link = 'empassion.com.au/home';
                     break;
                 case 'nsw':
-                    state_link = 'empassion.com.au/home';
+                    state_link = 'nsw.empassion.com.au';
                     break;
                 case 'sa':
                     state_link = 'empassion.com.au/home';
                     break;
                 case 'vic':
-                    state_link = 'empassion.com.au/home';
+                    state_link = 'vic.empassion.com.au';
                     break;
                 case 'tas':
-                    state_link = 'empassion.com.au/home';
+                    state_link = 'vic.empassion.com.au';
                     break;
                 case 'act':
-                    state_link = 'empassion.com.au/home';
+                    state_link = 'nsw.empassion.com.au';
                     break;
                 default:
                     state_link = 'empassion.com.au/home';
@@ -236,28 +285,28 @@ jQuery(document).ready(function($){
 
             switch(state_id){
                 case 'qld':
-                    state_link = 'qld.empassion.com.au';
+                    state_link = 'empassion.com.au/home';
                     break;
                 case 'wa':
-                    state_link = 'wa.empassion.com.au';
+                    state_link = 'empassion.com.au/home';
                     break;
                 case 'nt':
                     state_link = 'empassion.com.au/home';
                     break;
                 case 'nsw':
-                    state_link = 'empassion.com.au/home';
+                    state_link = 'nsw.empassion.com.au';
                     break;
                 case 'sa':
                     state_link = 'empassion.com.au/home';
                     break;
                 case 'vic':
-                    state_link = 'empassion.com.au/home';
+                    state_link = 'vic.empassion.com.au';
                     break;
                 case 'tas':
-                    state_link = 'empassion.com.au/home';
+                    state_link = 'vic.empassion.com.au';
                     break;
                 case 'act':
-                    state_link = 'empassion.com.au/home';
+                    state_link = 'nsw.empassion.com.au';
                     break;
                 default:
                     state_link = 'empassion.com.au/home';

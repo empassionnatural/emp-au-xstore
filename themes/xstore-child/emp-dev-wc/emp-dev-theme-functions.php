@@ -125,3 +125,51 @@ function etheme_get_links($args) {
 
 	return apply_filters('etheme_get_links', $links);
 }
+
+if ( class_exists( 'WJECF_Wrap' ) ) {
+
+	add_filter( 'woocommerce_coupon_is_valid', 'empdev_exclude_sale_free_products', 20, 2 );
+
+	function empdev_exclude_sale_free_products( $valid, $coupon ) {
+
+		$wrap_coupon          = WJECF_Wrap( $coupon );
+		$exclude_sales_items  = $wrap_coupon->get_meta( 'exclude_sale_items' );
+		$get_free_product_ids = WJECF_API()->get_coupon_free_product_ids( $coupon );
+
+		if ( ! empty( $get_free_product_ids ) && $exclude_sales_items === true ) {
+
+			$get_coupon_minimum_amount = $wrap_coupon->get_meta( 'minimum_amount' );
+
+			$cart = WC()->cart->get_cart();
+
+			//var_dump(WC()->cart->get_totals());
+			//reference meta abstract-wc-product.php
+
+			$calculate_regular_price = 0;
+			foreach ( $cart as $cart_item_key => $cart_item ) {
+
+				$cart_item_id = $cart_item['product_id'];
+
+				if ( ! in_array( $cart_item_id, $get_free_product_ids ) ) {
+					$sale_price         = $cart_item['data']->get_sale_price();
+					$cart_item_quantity = $cart_item['quantity'];
+
+					if ( empty( $sale_price ) ) {
+
+						$regular_price = $cart_item['data']->get_regular_price();
+
+						$calculate_regular_price += (float) $regular_price * (int) $cart_item_quantity;
+					}
+				}
+
+			}
+
+			if ( $calculate_regular_price < (float) $get_coupon_minimum_amount ) {
+				return false;
+			}
+
+		}
+
+		return $valid;
+	}
+}
