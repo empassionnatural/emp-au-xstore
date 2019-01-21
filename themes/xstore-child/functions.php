@@ -27,12 +27,16 @@ function empdev_custom_scripts_frontend(){
 	wp_enqueue_script( 'custom-script', get_stylesheet_directory_uri() . '/js/custom-script.js', array('jquery'), '1.1.3', false );
 	wp_enqueue_style( 'custom-style', get_stylesheet_directory_uri() . '/css/custom-style.css', array(), '1.1.3' );
 
+	if ( is_page(26423) ) {
+		wp_enqueue_style('font-lobster-css-style', 'https://fonts.googleapis.com/css?family=Lobster+Two', array(), '1.1.10');
+		wp_enqueue_style('home-custom-style', get_stylesheet_directory_uri() . '/css/home-custom-style.css' , array(), '1.2.1');
+	}
 
 	wp_enqueue_style( 'bootstrap-select', get_stylesheet_directory_uri() . '/plugins/bootstrap-select/css/bootstrap-select.css' );
 	wp_enqueue_script( 'bootstrap-core', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js', false, false );
 	wp_enqueue_script( 'bootstrap-select', get_stylesheet_directory_uri() . '/plugins/bootstrap-select/js/bootstrap-select.js', array( 'jquery' ), false, false );
 
-	wp_enqueue_script( 'landingmap-scripts', get_stylesheet_directory_uri() . '/assets/main-global.js', array( 'jquery' ), '2.1.5', false );
+	wp_enqueue_script( 'landingmap-scripts', get_stylesheet_directory_uri() . '/assets/main-global.js', array( 'jquery' ), '2.2.1', false );
 	wp_enqueue_style( 'global-styles', get_stylesheet_directory_uri() . '/assets/main-style.css', false, '1.1.2' );
 	if( is_front_page() ){
 

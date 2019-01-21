@@ -18,7 +18,7 @@ var userBrowserAgent = navigator.UserBrowser;
 
 jQuery(document).ready(function($){
     $('html').addClass(userBrowserAgent);
-    $('.header-logo').find('a').attr('href', 'https://empassion.com.au/');
+    $('.header-logo').find('a').attr('href', 'https://empassion.com.au/home');
 
     var main_global = {
 
