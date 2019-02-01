@@ -164,4 +164,6 @@ function etheme_shop_navbar( $location = 'header', $exclude = array(), $force = 
 
 //EMP Dev Woocommerce
 require_once( get_stylesheet_directory() . '/emp-dev-wc/emp-dev-theme-functions.php' );
+require_once( get_stylesheet_directory() . '/emp-dev-wc/class-emp-dev-wc-meta-option.php' );
+require_once( get_stylesheet_directory() . '/emp-dev-wc/class-emp-dev-wc-static-helper.php' );
 require_once( get_stylesheet_directory() . '/emp-dev-wc/emp-dev-login.php' );

@@ -19,7 +19,7 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 
 	public function __construct() {
 
-		add_filter( 'wwp_apply_wholesale_price_cart_level' , array( $this, 'empdev_filter_if_apply_wholesale_price_cart_level'), 99 , 5 );
+		add_filter( 'wwp_apply_wholesale_price_cart_level' , array( $this, 'empdev_filter_if_apply_wholesale_price_cart_level'), 200 , 5 );
 	}
 
 	public function empdev_filter_if_apply_wholesale_price_cart_level( $apply_wholesale_price , $cart_total , $cart_items , $cart_object , $user_wholesale_role ) {
