@@ -19,10 +19,11 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 
 	public function __construct() {
 
-		add_filter( 'wwp_apply_wholesale_price_cart_level' , array( $this, 'empdev_filter_if_apply_wholesale_price_cart_level'), 200 , 5 );
+		add_filter( 'wwp_apply_wholesale_price_cart_level' , array( $this, 'empdev_filter_if_apply_wholesale_price_cart_level'), 99 , 5 );
 	}
 
 	public function empdev_filter_if_apply_wholesale_price_cart_level( $apply_wholesale_price , $cart_total , $cart_items , $cart_object , $user_wholesale_role ) {
+
 		$user_id                                = get_current_user_id();
 		$minimum_cart_items                     = trim( get_option( 'wwpp_settings_minimum_order_quantity' ) );
 		$minimum_cart_price                     = trim( get_option( 'wwpp_settings_minimum_order_price' ) );
@@ -39,6 +40,8 @@ class EMPDEV_WWPP_Wholesale_Price_Requirement {
 		foreach ( $cart_object->cart_contents as $cart_item_key => $cart_item ) {
 			$product_id      = WWP_Helper_Functions::wwp_get_product_id( $cart_item['data'] );
 			$wholesale_price = $WPP::get_product_wholesale_price_on_cart( $product_id, $user_wholesale_role, $cart_item, $cart_object );
+
+			//var_dump($cart_item['data']);
 
 			if ( empty( $wholesale_price ) ) {
 				$original_price = get_post_meta( $product_id, '_price', true );
