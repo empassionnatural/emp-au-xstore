@@ -220,6 +220,10 @@ table.shop_table tbody tr.cart_item {
 #gemagiftfront {
     width: 100% !important;
 }
+.cart-order-details .shop_table tbody tr:last-child td {
+    padding-bottom: 9px !important;
+    padding-top: 9px !important;
+}
 @media (max-width:1024px) {
     .return-shop.button.alt {
         line-height: 2.8;

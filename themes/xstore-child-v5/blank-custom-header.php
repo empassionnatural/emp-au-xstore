@@ -39,13 +39,13 @@ $menu_class = 'menu-align-' . etheme_get_option('menu_align');
 <div id="top-bar-info landing-page" class="top-bar-info">
     <div class="container">
         <div class="col-md-8">
-            <h1>Active</h1>
+
             <?php dynamic_sidebar( 'map-top-left-corner' ); ?>
 
         </div>
         <div class="col-md-4">
             <div class="text-right">
-                <h1>Active</h1>
+
                 <?php dynamic_sidebar( 'map-top-right-corner' ); ?>
 
             </div>
