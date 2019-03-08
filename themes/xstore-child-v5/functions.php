@@ -1,20 +1,32 @@
 <?php
+
+//enqueue parent theme
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {
-	etheme_child_styles();
+    etheme_child_styles();
 }
 
 //enqueue custom scripts
 add_action( 'wp_enqueue_scripts', 'empdev_custom_scripts_frontend', 99 );
 
 function empdev_custom_scripts_frontend(){
-	wp_enqueue_script( 'custom-script', get_stylesheet_directory_uri() . '/js/custom-script.js', array('jquery'), '1.1.3', false );
-	wp_enqueue_style( 'custom-style', get_stylesheet_directory_uri() . '/css/custom-style.css', array(), '1.1.3' );
+	wp_enqueue_script( 'custom-script', get_stylesheet_directory_uri() . '/js/custom-script.js', array('jquery'), '3.3.7', false );
+    wp_enqueue_style( 'custom-style', get_stylesheet_directory_uri() . '/css/custom-style.css', array(), '3.6.5' );
 
 	if ( is_page(26423) ) {
-		wp_enqueue_style('font-lobster-css-style', 'https://fonts.googleapis.com/css?family=Lobster+Two', array(), '1.1.10');
-		wp_enqueue_style('home-custom-style', get_stylesheet_directory_uri() . '/css/home-custom-style.css' , array(), '1.2.1');
+		wp_enqueue_style('font-lobster-css-style', 'https://fonts.googleapis.com/css?family=Lobster+Two', array(), '2.1.1');
+		wp_enqueue_style('home-custom-style', get_stylesheet_directory_uri() . '/css/home-custom-style.css' , array(), '2.2.1');
 	}
+
+    wp_enqueue_style( 'cart-style', get_stylesheet_directory_uri() . '/css/cart-view.css', array(), '2.0.8' );
+    wp_enqueue_style( 'checkout-style', get_stylesheet_directory_uri() . '/css/checkout.css', array(), '2.1.3' );
+
+    wp_enqueue_style( 'myaccount-style', get_stylesheet_directory_uri() . '/css/my-account-view.css', array(), '2.0.2' );
+
+    wp_enqueue_style( 'register-view-style', get_stylesheet_directory_uri() . '/css/register-view.css', array(), '2.0.1' );
+
+    wp_enqueue_style( 'product-custom-style', get_stylesheet_directory_uri() . '/css/product-view.css' , array(), '2.2.10' );
+    wp_enqueue_style( 'single-product-custom-style', get_stylesheet_directory_uri() . '/css/single-product-view.css' , array(), '2.2.0' );
 
 	wp_enqueue_style( 'bootstrap-select', get_stylesheet_directory_uri() . '/plugins/bootstrap-select/css/bootstrap-select.css' );
 	wp_enqueue_script( 'bootstrap-core', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js', false, false );
@@ -150,4 +162,12 @@ function etheme_shop_navbar( $location = 'header', $exclude = array(), $force = 
 require_once( get_stylesheet_directory() . '/emp-dev-wc/emp-dev-theme-functions.php' );
 require_once( get_stylesheet_directory() . '/emp-dev-wc/class-emp-dev-wc-meta-option.php' );
 require_once( get_stylesheet_directory() . '/emp-dev-wc/class-emp-dev-wc-static-helper.php' );
+require_once( get_stylesheet_directory() . '/emp-dev-wc/emp-dev-wc-hooks.php' );
 require_once( get_stylesheet_directory() . '/emp-dev-wc/emp-dev-login.php' );
+require_once( get_stylesheet_directory() . '/emp-dev-wc/emp-meta.php' );
+/*double check*/
+if ( ! function_exists( 'rwmb_meta' ) ) {
+    function rwmb_meta( $key, $args = '', $post_id = null ) {
+        return false;
+    }
+}

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Blank page - Landing Page
+ * Template Name: Black page - Landing Page
  *
  */
 
@@ -29,7 +29,6 @@
 </head>
 
 <body <?php body_class(); ?>>
-
 <?php do_action( 'et_after_body' ); ?>
 <?php
 $ht = get_query_var('et_ht', 'xstore');
@@ -38,18 +37,22 @@ $menu_class = 'menu-align-' . etheme_get_option('menu_align');
 ?>
 <div id="top-bar-info landing-page" class="top-bar-info">
     <div class="container">
-        <div class="col-md-8">
-            <h1>Active</h1>
-            <?php dynamic_sidebar( 'map-top-left-corner' ); ?>
+        <?php if ( is_active_sidebar( 'map-top-left-corner' ) ) : ?>
+            <div class="col-md-8">
 
-        </div>
-        <div class="col-md-4">
-            <div class="text-right">
-                <h1>Active</h1>
-                <?php dynamic_sidebar( 'map-top-right-corner' ); ?>
-
+                <?php dynamic_sidebar( 'map-top-left-corner' ); ?>
+                
             </div>
-        </div>
+        <?php endif; ?>
+        <?php if ( is_active_sidebar( 'map-top-right-corner' ) ) : ?>
+            <div class="col-md-4">
+                <div class="text-right">
+
+                    <?php dynamic_sidebar( 'map-top-right-corner' ); ?>
+
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 <div class="container-landing content-page-landing">

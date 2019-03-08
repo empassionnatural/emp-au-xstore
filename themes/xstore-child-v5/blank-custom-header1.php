@@ -10,8 +10,7 @@
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>" />
     <meta name="viewport" content="user-scalable=1, width=device-width, initial-scale=1, maximum-scale=2.0"/>
-
-    <?php wp_head(); ?>
+	<?php wp_head(); ?>
     <script type="text/javascript">
         jQuery(document).ready(function(){
             var select_country = '<select class="selectpicker">';
@@ -32,20 +31,20 @@
 
 <?php do_action( 'et_after_body' ); ?>
 <?php
-$ht = get_query_var('et_ht', 'xstore');
-$color = get_query_var('et_header-color', 'dark');
+$ht = etheme_get_header_type();
+$color = etheme_get_header_color();
 $menu_class = 'menu-align-' . etheme_get_option('menu_align');
 ?>
 <div id="top-bar-info landing-page" class="top-bar-info">
     <div class="container">
         <div class="col-md-8">
-            <h1>Active</h1>
+
             <?php dynamic_sidebar( 'map-top-left-corner' ); ?>
 
         </div>
         <div class="col-md-4">
             <div class="text-right">
-                <h1>Active</h1>
+
                 <?php dynamic_sidebar( 'map-top-right-corner' ); ?>
 
             </div>

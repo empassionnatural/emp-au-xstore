@@ -1,10 +1,15 @@
 <?php 
-    $ht = etheme_get_header_type();
-    $color = etheme_get_header_color();
+    $ht = get_query_var('et_ht', 'xstore');
+    $color = get_query_var('et_header-color', 'dark');
     $menu_class = 'menu-align-' . etheme_get_option('menu_align');
+    $banner_pos = etheme_get_option('header_banner_pos');
 ?>
 
 <div class="header-wrapper header-<?php echo esc_attr( $ht ); ?> header-color-<?php echo esc_attr( $color ); ?>">
+    <?php if ( $banner_pos == 'top' ) {
+        if((!function_exists('dynamic_sidebar') || !dynamic_sidebar('header-banner'))): ?>
+        <?php endif; ?>
+    <?php } ?>
     <?php get_template_part('headers/parts/top-bar'); ?>
     <div class="header-bg-block">
         <header class="header main-header">
@@ -22,9 +27,7 @@
                     <?php etheme_shop_navbar( 'header', array( 'search' ) ); ?>
                     <div class="navbar-toggle">
                         <span class="sr-only"><?php esc_html_e('Menu', 'xstore'); ?></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                        <span class="et-icon et-burger"></span>
                     </div>
                 </div>
             </div>
@@ -32,24 +35,16 @@
         <div class="navigation-wrapper">
             <div class="container">
                 <div class="menu-inner">
-                    <?php if ( has_nav_menu( 'secondary' ) && etheme_get_option( 'secondary_menu' ) ): ?>
-                        <div class="secondary-menu-wrapper">
-                            <div class="secondary-title">
-                                <div class="secondary-menu-toggle">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </div>
-                                <?php etheme_option('all_departments_text'); ?>
-                            </div>
-                            <?php etheme_get_main_menu('secondary'); ?>
-                        </div>
-                    <?php endif ?>
+                    <?php et_show_secondary_menu(); ?>
                     <div class="menu-wrapper <?php echo esc_attr($menu_class); ?>">
-                        <?php etheme_get_main_menu(); ?>
+                        <?php etheme_menu( 'main-menu', 'custom_nav' ); ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <?php if ( $banner_pos == 'bottom' ) {
+        if((!function_exists('dynamic_sidebar') || !dynamic_sidebar('header-banner'))): ?>
+        <?php endif; ?>
+    <?php } ?>
 </div>

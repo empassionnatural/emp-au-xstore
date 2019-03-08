@@ -1,6 +1,6 @@
 <?php 
-    $ht = etheme_get_header_type();
-    $color = etheme_get_header_color();
+    $ht = get_query_var('et_ht', 'xstore');
+    $color = get_query_var('et_header-color', 'dark');
 
 ?>
 
@@ -11,17 +11,15 @@
             <div class="header-logo"><?php etheme_logo(); ?></div>
 
             <div class="menu-wrapper"> 
-			    <p class="hamburger-icon">
-			        <span></span>
+			    <p class="hamburger-icon with-anim">
+		            <span></span>
 			    </p>
-			    <?php etheme_get_main_menu(); ?>
+			    <?php etheme_menu( 'main-menu', 'custom_nav' ); ?>
 			</div>
 
 			 <div class="navbar-toggle">
                     <span class="sr-only"><?php esc_html_e( 'Menu', 'xstore' ); ?></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="et-icon et-burger"></span>
                 </div>
             <?php etheme_shop_navbar( 'header', array( 'search' ) ); ?>
         </div>
