@@ -26,7 +26,7 @@ function empdev_custom_scripts_frontend(){
     wp_enqueue_style( 'register-view-style', get_stylesheet_directory_uri() . '/css/register-view.css', array(), '2.0.1' );
 
     wp_enqueue_style( 'product-custom-style', get_stylesheet_directory_uri() . '/css/product-view.css' , array(), '2.3.1' );
-    wp_enqueue_style( 'single-product-custom-style', get_stylesheet_directory_uri() . '/css/single-product-view.css' , array(), '2.2.0' );
+    wp_enqueue_style( 'single-product-custom-style', get_stylesheet_directory_uri() . '/css/single-product-view.css' , array(), '2.2.2' );
 
 	wp_enqueue_style( 'bootstrap-select', get_stylesheet_directory_uri() . '/plugins/bootstrap-select/css/bootstrap-select.css' );
 	wp_enqueue_script( 'bootstrap-core', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js', false, false );

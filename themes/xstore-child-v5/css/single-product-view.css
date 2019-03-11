@@ -96,7 +96,9 @@
 .product-info-footer .tab-content #ProductReviews {
     max-height: 500px;
     height: auto;
-    padding: 81px;
+    padding: 37px 81px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 .product-info-footer .tab-content #ProductReviews .star-rating::before, .product-info-footer .tab-content #ProductReviews .star-rating span::before, .product-info-footer .tab-content #ProductReviews #review_form .stars a::before {
     font-size: 2rem;
