@@ -100,7 +100,6 @@ table.cart thead th {
 .cart-collaterals .order-summary .shop_table th , .cart-collaterals .order-summary .shop_table td {
     padding: 0px 15px !important;
     width: 0px;
-    padding-bottom: 25px !important;
 }
 .cart-collaterals .order-summary .shop_table .order-total th{
     text-transform: uppercase;
