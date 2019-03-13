@@ -1,7 +1,17 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+add_action( 'woocommerce_init', 'empdev_woocommerce_redirect_product_url' );
 
+function empdev_woocommerce_redirect_product_url() {
+
+	if ( is_user_logged_in() ) {
+
+		if ( isset( $_GET['redirect_permalink'] ) ) {
+			wp_safe_redirect( $_GET['redirect_permalink'], 302 );
+			exit;
+		}
+	}
+}
 
 add_action('woocommerce_add_to_cart', 'empdev_new_customers_redirect_purchase', 100);
 function empdev_new_customers_redirect_purchase() {
@@ -30,15 +40,20 @@ function empdev_new_customers_redirect_purchase() {
 
 }
 
+
 add_action('woocommerce_after_cart', 'empdev_new_customers_cart_restriction');
+
+add_action('woocommerce_after_checkout_form', 'empdev_new_customers_cart_restriction');
+
 function empdev_new_customers_cart_restriction(){
 
 	if ( ! WC()->cart->is_empty()  ) {
 
 		$empdev_limit_new_customers_ids = get_option( 'empdev_limit_new_customers_ids', false );
 		$customer_orders = EMPDEV_WC_Static_Helper::get_recent_order();
+		$blog_link = get_bloginfo('url');
 
-		if (is_cart() && ! empty ( $empdev_limit_new_customers_ids ) && count( $customer_orders ) > 0 ){
+		if ( ( is_cart() || is_checkout () ) && ! empty ( $empdev_limit_new_customers_ids ) && count( $customer_orders ) > 0 ){
 
 			$cart = WC()->cart->get_cart();
 			//var_dump($cart);
@@ -59,7 +74,13 @@ function empdev_new_customers_cart_restriction(){
 			if($send_error_notice){
 				wc_clear_notices();
 				$product_title = get_the_title($cart_item_id);
-				$message_title = "Sorry, ".$product_title." is only valid for new customers!";
+
+				if( is_user_logged_in() ){
+					$message_title = "Sorry, ".$product_title." is only valid for new customers! ";
+				} else {
+					$message_title = "Login is required to purchase ".$product_title . ". <span><a href='".$blog_link."/my-account/?redirect_permalink=".$blog_link."/cart'>Click here to login.</a></span>";
+				}
+
 				$message = __( $message_title, "woocommerce" );
 				wc_add_notice( $message, 'error' );
 			}
@@ -70,110 +91,9 @@ function empdev_new_customers_cart_restriction(){
 
 }
 
-
-/**
- * Exclude products from a particular category on the shop page
- */
-function empdev_exclude_cat_on_shop_page_query( $q ) {
-
-	$tax_query = (array) $q->get( 'tax_query' );
-
-	$tax_query[] = array(
-		'taxonomy' => 'product_cat',
-		'field' => 'slug',
-		'terms' => array( 'uncategorised', 'black-friday-sale' ), // Don't display products in the clothing category on the shop page.
-		'operator' => 'NOT IN'
-	);
-
-
-	$q->set( 'tax_query', $tax_query );
-
-}
-add_action( 'woocommerce_product_query', 'empdev_exclude_cat_on_shop_page_query' );
-
-add_filter( 'woocommerce_add_to_cart_validation', 'emddev_conditional_product_in_cart_dynamic', 10, 2 );
-
-function emddev_conditional_product_in_cart_dynamic( $passed, $product_id ) {
-
-	// HERE define your 4 specific product Ids
-	//$products_ids = array( 7131, 9026 );
-	$products_ids = get_option( 'empdev_purchase_one_at_time', false );
-
-	$addon_product_ids = get_option( 'empdev_enable_addon_checkout', false );
-
-	// Searching in cart for IDs
-	if ( ! WC()->cart->is_empty() && $products_ids != false  ) {
-		foreach ( WC()->cart->get_cart() as $cart_item ) {
-			$item_pid = $cart_item['product_id'];
-			$product_message_title_cart = trim( get_post_meta( $item_pid, '_empdev_purchase_product_title_message', true ) );
-
-			$product_message_title_cart = ($product_message_title_cart != '') ? $product_message_title_cart : get_the_title( $item_pid );
-
-			//	// If current product is from the targeted IDs and a another targeted product id in cart
-			if ( in_array( $item_pid, $products_ids ) && in_array( $product_id, $products_ids ) && $product_id != $item_pid ) {
-				$passed = false; // Avoid add to cart
-				$message_title = "Sorry, this product can't be purchased at the same time with other special offers!";
-				break; // Stop the loop
-			}
-		}
-	}
-
-	if ( WC()->cart->is_empty() ) {
-
-		if ( in_array( $product_id, $addon_product_ids ) ) {
-			$passed        = false; // Avoid add to cart
-			$message_title = "Sorry, you can only purchase this product as an add on, please add item to your cart.";
-
-		}
-	}
-
-//	$product_message_title = trim( get_post_meta( $product_id, '_empdev_purchase_product_title_message', true ) );
-//	$product_message_title = ($product_message_title != '') ? $product_message_title : get_the_title( $product_id );
-
-	if ( ! $passed ) {
-		// Displaying a custom message
-		$message = __( $message_title, "woocommerce" );
-		wc_add_notice( $message, 'error' );
-	}
-
-	if( $passed ){
-		return $passed;
-	}
-
-}
-function emddev_conditional_product_in_cart( $passed, $product_id, $quantity) {
-
-	// HERE define your 4 specific product Ids
-	$products_ids = array( 10952, 9811 );
-
-	// Searching in cart for IDs
-	if ( ! WC()->cart->is_empty() ) {
-		foreach ( WC()->cart->get_cart() as $cart_item ) {
-			$item_pid = $cart_item['product_id'];
-			// If current product is from the targeted IDs and a another targeted product id in cart
-			if ( in_array( $item_pid, $products_ids ) && in_array( $product_id, $products_ids ) && $product_id != $item_pid ) {
-				$passed = false; // Avoid add to cart
-				break; // Stop the loop
-			}
-		}
-	}
-
-
-	if ( ! $passed ) {
-		// Displaying a custom message
-		$message = __( "Sorry, Amazing Intro Offer and Crazy Pack Offer can't be purchased at the same time!", "woocommerce" );
-		wc_add_notice( $message, 'error' );
-	}
-
-	if( $passed ){
-		return $passed;
-	}
-
-}
-
 if ( class_exists( 'WJECF_Wrap' ) ) {
 
-	add_filter( 'woocommerce_coupon_is_valid', 'empdev_exclude_sale_free_products', 100, 2 );
+	add_filter( 'woocommerce_coupon_is_valid', 'empdev_exclude_sale_free_products', 20, 2 );
 
 	function empdev_exclude_sale_free_products( $valid, $coupon ) {
 
@@ -181,10 +101,9 @@ if ( class_exists( 'WJECF_Wrap' ) ) {
 		$exclude_sales_items  = $wrap_coupon->get_meta( 'exclude_sale_items' );
 		$get_free_product_ids = WJECF_API()->get_coupon_free_product_ids( $coupon );
 
-		$get_coupon_minimum_amount = $wrap_coupon->get_meta( 'minimum_amount' );
+		if ( ! empty( $get_free_product_ids ) && $exclude_sales_items === true ) {
 
-		/*Recalculate cart to exclude sale items in minimum spend amount restriction*/
-		if ( $exclude_sales_items === true && ! empty( $get_coupon_minimum_amount ) ) {
+			$get_coupon_minimum_amount = $wrap_coupon->get_meta( 'minimum_amount' );
 
 			$cart = WC()->cart->get_cart();
 
