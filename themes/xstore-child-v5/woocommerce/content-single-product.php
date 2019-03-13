@@ -120,13 +120,7 @@ $etheme_global['class'] .= ' single-product';
                         <div id="ProductReviews" class="tabcontent">
                             <div class="star-rating"><span style="width:<?php echo ( ( $average / 5 ) * 100 );?>%"><strong itemprop="ratingValue" class="rating"><?php echo $average; ?></strong> <?php echo __( 'out of 5', 'woocommerce' )?></span></div>
                             <div class="rating-link">
-                                <?php
-                                if($average > 0) {
-                                    echo "<p><a href=".get_permalink($post->ID)." target='_self' rel='noopener'>Write a Review</a></p>";
-                                } else {
-                                    echo "<p>This product has no reviews yet.</p>";
-                                }
-                                ?>
+                                <?php echo do_shortcode( '[rf_reviews slug="Reviews-Widget-0"]' ); ?>
                             </div>
                         </div>
                         <div id="Usage" class="tabcontent" style="display: none;">
