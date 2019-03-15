@@ -167,10 +167,10 @@ button.btn-disabled,
   -moz-animation: rotation 1s infinite linear;
   animation: rotation 1s infinite linear;
 }
-.account-links {
-  width: 42%;
+/*.account-links {*/
+  /*width: 42%;*/
 
-}
+/*}*/
 .btn.btn-account {
   padding: 5px;
   width: 104px;

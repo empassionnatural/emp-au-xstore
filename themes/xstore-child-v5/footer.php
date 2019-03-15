@@ -78,7 +78,7 @@ $disable_copyrights = etheme_get_custom_field('remove_copyrights', $page_id);
 <?php do_action('after_page_wrapper'); ?>
 
 <div id="id-floatingbutton" class="floatingbutton">
-        <?php etheme_top_cart(); ?>
+    <?php etheme_top_cart(); ?>
 </div>
 </div> <!-- template-container -->
 
