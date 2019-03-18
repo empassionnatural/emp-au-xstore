@@ -131,3 +131,12 @@ $win.on('scroll', function () {
         $('#id-floatingbutton').addClass('fbIn').removeClass('fbOut');
     }
 });
+
+// window.addEventListener('scroll', function () {
+//     if ($win.scrollTop() < 1) {
+//         $('#id-floatingbutton').addClass('fbOut').removeClass('fbIn');
+//     }
+//     else {
+//         $('#id-floatingbutton').addClass('fbIn').removeClass('fbOut');
+//     }
+// });
