@@ -1038,11 +1038,17 @@ back-top {
 
 }
 @media (max-width: 992px){
+
     #select-state-mobile option {
         color: #84b316 !important;
     }
 }
 @media (max-width: 768px){
+    .link-login, .link-signup {
+      margin-right: 16px !important;
+      float: left !important;
+      line-height: 2.15rem !important;
+    }
     .account-dropdown .topbar-widget {
       max-width: 317px;
       width: 308px;
@@ -1065,16 +1071,20 @@ back-top {
     .switch-country, .switch-state {
       display: none !important;
     }
-    .home .switch-country {
-      display: block !important;
-    }
+    /*.home .switch-country {*/
+      /*display: block !important;*/
+    /*}*/
     .link-login{
         margin-right: 0;
     }
 }
 @media (max-width: 480px) {
+  .link-login, .link-signup {
+    float: unset !important;
+  }
   .top-bar .cols {
     padding-left: 0px !important;
+    padding-right: 0px !important;
   }
   .account-dropdown .topbar-widget {
     max-width: 139px;
